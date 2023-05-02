@@ -19,3 +19,4 @@ spec:
       containers:
         - name: kubesphere-test # 容器名字
           image: ccr.ccs.tencentyun.com/corgi_project/ks-test:latest # 镜像
+          imagePullPolicy: Always
