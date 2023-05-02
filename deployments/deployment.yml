@@ -21,5 +21,6 @@ spec:
       # 定义容器，可以多个
       containers:
         - name: kubesphere-test # 容器名字
-          image: ccr.ccs.tencentyun.com/corgi_project/ks-test:latest # 镜像
+          # ccr.ccs.tencentyun.com/corgi_project/ks-test:latest
+          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER # 配合 jenkins 使用的镜像
           imagePullPolicy: Always
