@@ -16,6 +16,8 @@ spec:
       labels:
         app: kubesphere-test
     spec:
+      imagePullSecrets:
+        - name: txcloud-docker-registry  # 提前在项目下配置访问腾讯云的账号密码
       # 定义容器，可以多个
       containers:
         - name: kubesphere-test # 容器名字
