@@ -22,5 +22,5 @@ spec:
       containers:
         - name: kubesphere-test # 容器名字
           # ccr.ccs.tencentyun.com/corgi_project/ks-test:latest
-          image: $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$GIT_COMMIT # 配合 jenkins 使用的镜像
+          image: ccr.ccs.tencentyun.com/corgi_project/ks-test:latest
           imagePullPolicy: Always
