@@ -47,9 +47,7 @@ pipeline {
           withCredentials([kubeconfigContent(credentialsId : 'kubeconfig' ,variable : 'KUBECONFIG_CONFIG' ,)]) {
             sh 'mkdir -p ~/.kube/'
             sh 'echo "$KUBECONFIG_CONFIG" > ~/.kube/config'
-            sh '''envsubst < deployments/deployment.yml | kubectl apply -f -
-envsubst < deployments/service.yml | kubectl apply -f -
-envsubst < deployments/ingress.yml | kubectl apply -f -'''
+            sh '''envsubst < deployments/deploy.yaml | kubectl apply -f -'''
           }
 
         }
