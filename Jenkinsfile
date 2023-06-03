@@ -10,7 +10,7 @@ pipeline {
       agent none
       steps {
         container('base') {
-          git(url: "${REPO}", changelog: true, poll: false, credentialsId: 'pz-github-ssh', branch: 'master')
+          git(url: "${REPO}", changelog: true, poll: false, credentialsId: "${GIT_CREDENTIAL_ID}", branch: 'master')
         }
 
       }
@@ -20,7 +20,7 @@ pipeline {
       steps {
         container('base') {
           sh 'docker build -f Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$GIT_COMMIT .'
-          withCredentials([usernamePassword(credentialsId : 'txcloud-docker-registry' ,passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,)]) {
+          withCredentials([usernamePassword(credentialsId : "${DOCKER_REGISTRY_CREDENTIAL_ID}" ,passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,)]) {
             sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
             sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$GIT_COMMIT'
           }
@@ -60,8 +60,10 @@ envsubst < deployments/ingress.yml | kubectl apply -f -'''
   }
   environment {
     REPO = 'git@github.com:Shimada666/kubesphere_test.git'
+    GIT_CREDENTIAL_ID = 'pz-github-ssh'
     KUBECONFIG_CREDENTIAL_ID = 'kubeconfig'
     REGISTRY = 'ccr.ccs.tencentyun.com'
+    DOCKER_REGISTRY_CREDENTIAL_ID = 'txcloud-docker-registry'
     DOCKERHUB_NAMESPACE = 'corgi_project'
     APP_NAME = 'ks-test'
   }
