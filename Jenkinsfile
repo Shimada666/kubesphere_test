@@ -10,7 +10,7 @@ pipeline {
       agent none
       steps {
         container('base') {
-          git(url: 'git@github.com:Shimada666/kubesphere_test.git', changelog: true, poll: false, credentialsId: 'pz-github-ssh', branch: 'master')
+          git(url: "${REPO}", changelog: true, poll: false, credentialsId: 'pz-github-ssh', branch: 'master')
         }
 
       }
@@ -59,6 +59,7 @@ envsubst < deployments/ingress.yml | kubectl apply -f -'''
 
   }
   environment {
+    REPO = 'git@github.com:Shimada666/kubesphere_test.git'
     KUBECONFIG_CREDENTIAL_ID = 'kubeconfig'
     REGISTRY = 'ccr.ccs.tencentyun.com'
     DOCKERHUB_NAMESPACE = 'corgi_project'
