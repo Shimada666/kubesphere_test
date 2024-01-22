@@ -57,7 +57,7 @@ pipeline {
 
   }
   environment {
-    REPO = 'git@github.com:Shimada666/kubesphere_test.git'
+    REPO = 'https://hub.fgit.cf/Shimada666/kubesphere_test.git'
     GIT_CREDENTIAL_ID = 'pz-github-ssh'
     KUBECONFIG_CREDENTIAL_ID = 'kubeconfig'
     REGISTRY = 'ccr.ccs.tencentyun.com'
